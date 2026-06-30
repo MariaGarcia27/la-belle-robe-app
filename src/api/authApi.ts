@@ -1,9 +1,9 @@
 import api from './api'
 
-export const login = async (correo: string, contraseña: string) => {
+export const login = async (correo: string, password: string) => {
   const response = await api.post('/api/auth/login', {
     correo,
-    contraseña,
+    password,
   })
 
   return response.data
@@ -12,12 +12,12 @@ export const login = async (correo: string, contraseña: string) => {
 export const registrarse = async (
   nombre: string,
   correo: string,
-  contraseña: string,
+  password: string,
 ) => {
   const response = await api.post('/api/auth/register', {
     nombre,
     correo,
-    contraseña,
+    password,
   })
 
   return response.data
