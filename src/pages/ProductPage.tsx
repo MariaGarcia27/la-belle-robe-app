@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { getProductoById } from '@/api/productosApi'
 import { useCart } from '@/context/CartContext'
@@ -24,7 +24,7 @@ type Producto = {
 export function ProductPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { addToCart } = useCart()
+  const { addToCart, cartCount } = useCart()
 
   const [producto, setProducto] = useState<Producto | null>(null)
   const [loading, setLoading] = useState(true)
@@ -111,12 +111,22 @@ export function ProductPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-muted-foreground mb-4 hover:underline"
-      >
-        ← Volver
-      </button>
+      <div className="flex items-center justify-between mb-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-sm text-muted-foreground hover:underline"
+        >
+          ← Volver
+        </button>
+
+        {/* TODO: temporal — quitar cuando exista ClientNavbar (Issue #8) */}
+        <Link
+          to="/carrito"
+          className="text-sm text-primary hover:underline"
+        >
+          Ver carrito ({cartCount})
+        </Link>
+      </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         <div className="aspect-square bg-muted rounded-lg overflow-hidden">
