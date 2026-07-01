@@ -14,12 +14,24 @@ import { AdminOrdersPage } from './pages/AdminOrdersPage'
 import { AdminCustomersPage } from './pages/AdminCustomersPage'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import { PublicRoute } from './routes/PublicRoute'
+import { ClientNavbar } from './components/ClientNavbar'
+
+// Layout que envuelve todas las rutas privadas del cliente con el navbar
+function ClientLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <ClientNavbar />
+      <main>{children}</main>
+    </>
+  )
+}
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" replace />} />
 
+      {/* Rutas públicas */}
       <Route
         path="/login"
         element={
@@ -28,7 +40,6 @@ function App() {
           </PublicRoute>
         }
       />
-
       <Route
         path="/register"
         element={
@@ -38,69 +49,79 @@ function App() {
         }
       />
 
+      {/* Rutas privadas cliente — con ClientNavbar */}
       <Route
         path="/catalogo"
         element={
           <ProtectedRoute>
-            <CatalogPage />
+            <ClientLayout>
+              <CatalogPage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/producto/:id"
         element={
           <ProtectedRoute>
-            <ProductPage />
+            <ClientLayout>
+              <ProductPage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/carrito"
         element={
           <ProtectedRoute>
-            <CartPage />
+            <ClientLayout>
+              <CartPage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/checkout"
         element={
           <ProtectedRoute>
-            <CheckoutPage />
+            <ClientLayout>
+              <CheckoutPage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/confirmacion"
         element={
           <ProtectedRoute>
-            <ConfirmationPage />
+            <ClientLayout>
+              <ConfirmationPage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/pedidos"
         element={
           <ProtectedRoute>
-            <OrdersPage />
+            <ClientLayout>
+              <OrdersPage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/perfil"
         element={
           <ProtectedRoute>
-            <ProfilePage />
+            <ClientLayout>
+              <ProfilePage />
+            </ClientLayout>
           </ProtectedRoute>
         }
       />
 
+      {/* Rutas privadas admin — sin ClientNavbar */}
       <Route
         path="/admin"
         element={
@@ -109,7 +130,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/admin/productos"
         element={
@@ -118,7 +138,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/admin/pedidos"
         element={
@@ -127,7 +146,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/admin/clientes"
         element={
