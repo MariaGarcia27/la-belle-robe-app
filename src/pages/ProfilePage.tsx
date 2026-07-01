@@ -54,12 +54,15 @@ export function ProfilePage() {
               <span className="text-sm font-medium">{rolLabel[user.rol] ?? user.rol}</span>
             </div>
           </div>
-            <div className="flex items-center gap-3 px-5 py-4">
-              <div className="h-4 w-4 shrink-0" />
-              <div className="flex flex-1 flex-col gap-0.5">
-                <span className="text-sm text-muted-foreground">ID</span>
-                <span className="text-xs font-mono text-muted-foreground break-all">{(user as any)._id ?? (user as any).id ?? 'N/A'}</span>              </div>
+          <div className="flex items-center gap-3 px-5 py-4">
+            <div className="h-4 w-4 shrink-0" />
+            <div className="flex flex-1 flex-col gap-0.5">
+              <span className="text-sm text-muted-foreground">ID</span>
+              <span className="text-xs font-mono text-muted-foreground break-all">
+                {(user as any)._id ?? (user as any).id ?? 'N/A'}
+              </span>
             </div>
+          </div>
         </Card>
 
         <p className="text-xs text-muted-foreground mt-4 text-center">
