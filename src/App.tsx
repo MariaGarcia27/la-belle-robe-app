@@ -8,13 +8,14 @@ import { CheckoutPage } from './pages/CheckoutPage'
 import { ConfirmationPage } from './pages/ConfirmationPage'
 import { OrdersPage } from './pages/OrdersPage'
 import { ProfilePage } from './pages/ProfilePage'
-import { AdminDashboardPage } from './pages/AdminDashboardPage'
-import { AdminProductsPage } from './pages/AdminProductsPage'
-import { AdminOrdersPage } from './pages/AdminOrdersPage'
-import { AdminCustomersPage } from './pages/AdminCustomersPage'
+import { AdminDashboard } from './pages/admin/AdminDashboardPage'
+import { AdminProductsPage } from './pages/admin/AdminProductsPage'
+import { AdminOrdersPage } from './pages/admin/AdminOrdersPage'
+import { AdminCustomersPage } from './pages/admin/AdminCustomersPage'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import { PublicRoute } from './routes/PublicRoute'
 import { ClientNavbar } from './components/ClientNavbar'
+import { AdminProfilePage } from './pages/admin/AdminProfilePage'
 
 // Layout que envuelve todas las rutas privadas del cliente con el navbar
 function ClientLayout({ children }: { children: React.ReactNode }) {
@@ -126,7 +127,7 @@ function App() {
         path="/admin"
         element={
           <ProtectedRoute allowedRoles={['admin']}>
-            <AdminDashboardPage />
+            <AdminDashboard />
           </ProtectedRoute>
         }
       />
@@ -154,6 +155,14 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+      path="/admin/perfil"
+      element={
+        <ProtectedRoute allowedRoles={['admin']}>
+          <AdminProfilePage />
+        </ProtectedRoute>
+      }
+    />
 
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

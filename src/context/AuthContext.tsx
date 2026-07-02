@@ -9,6 +9,8 @@ import {
   getProfile,
   login as loginRequest,
   registrarse,
+  updateProfile as updateProfileRequest,
+  type ActualizarPerfilPayload,
 } from '@/api/authApi'
 
 type Role = 'admin' | 'cliente'
@@ -18,6 +20,8 @@ type User = {
   nombre: string
   correo: string
   rol: Role
+  telefono?: string
+  direccion?: string
 }
 
 type AuthContextType = {
@@ -27,6 +31,7 @@ type AuthContextType = {
   error: string | null
   login: (correo: string, password: string) => Promise<User>
   register: (nombre: string, correo: string, password: string) => Promise<void>
+  updateUser: (payload: ActualizarPerfilPayload) => Promise<User>
   logout: () => void
   checkAuth: () => Promise<void>
 }
@@ -79,6 +84,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const updateUser = async (payload: ActualizarPerfilPayload) => {
+    const data = await updateProfileRequest(payload)
+    const profile = data.usuario ?? data.user ?? data
+    const merged = { ...user, ...profile } as User
+
+    setUser(merged)
+    localStorage.setItem('usuario', JSON.stringify(merged))
+
+    return merged
+  }
+
   const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('usuario')
@@ -124,6 +140,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         error,
         login,
         register,
+        updateUser,
         logout,
         checkAuth,
       }}

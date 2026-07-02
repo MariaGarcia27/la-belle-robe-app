@@ -59,17 +59,22 @@ export function LoginPage() {
     <div className="flex min-h-screen flex-col md:flex-row">
       {/* Panel izquierdo decorativo */}
       <div className="relative hidden items-center justify-center bg-linear-to-br from-primary via-primary/70 to-secondary md:flex md:w-1/2">
-        <div className="max-w-md px-12 text-center">
-          <Logo className="justify-center [&_span:last-child]:text-white [&_span:first-child]:bg-white/20 [&_.lucide-flower2]:text-white" />
-          <h1 className="mt-10 font-serif text-4xl font-semibold leading-tight text-white text-balance">
-            Viste lo que sientes
-          </h1>
-          <p className="mt-4 leading-relaxed text-white/90">
-            Descubre piezas femeninas, elegantes y atemporales pensadas para
-            realzar tu estilo único.
-          </p>
-        </div>
+      <div className="max-w-md px-12 text-center">
+        {/* Corrección para que el Logo y sus elementos sean oscuros */}
+        <Logo className="justify-center [&_span:last-child]:text-current [&_span:first-child]:bg-black/10 [&_.lucide-flower2]:text-current text-primary-dark" />
+        
+        {/* Corrección de color en el H1 (text-primary-dark para un tono oscuro) */}
+        <h1 className="mt-10 font-serif text-4xl font-semibold leading-tight text-primary-dark text-balance">
+          Viste lo que sientes
+        </h1>
+        
+        {/* Corrección de color en el P (text-primary-dark/90 para un tono oscuro con opacidad) */}
+        <p className="mt-4 leading-relaxed text-primary-dark/90">
+          Descubre piezas femeninas, elegantes y atemporales pensadas para
+          realzar tu estilo único.
+        </p>
       </div>
+    </div>
 
       {/* Panel derecho con formulario */}
       <div className="flex flex-1 items-center justify-center bg-background px-6 py-12">

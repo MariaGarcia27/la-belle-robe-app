@@ -28,6 +28,19 @@ export const getProfile = async () => {
   return response.data
 }
 
+export type ActualizarPerfilPayload = Partial<{
+  nombre: string
+  correo: string
+  telefono: string
+  direccion: string
+  password: string
+}>
+
+export const updateProfile = async (payload: ActualizarPerfilPayload) => {
+  const response = await api.put('/api/auth/profile', payload)
+  return response.data
+}
+
 export const getUsuarios = async () => {
   const response = await api.get('/api/auth/usuarios')
   return response.data
