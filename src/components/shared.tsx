@@ -21,3 +21,29 @@ export function LoadingSpinner() {
     </div>
   )
 }
+
+export function formatPrice(value: number) {
+  return `$${value.toFixed(2)}`
+}
+
+type EstadoPedido = 'Pendiente' | 'Pagado' | 'Enviado' | 'Entregado'
+
+const estadoColores: Record<EstadoPedido, string> = {
+  Pendiente: 'bg-yellow-100 text-yellow-800',
+  Pagado: 'bg-blue-100 text-blue-800',
+  Enviado: 'bg-purple-100 text-purple-800',
+  Entregado: 'bg-green-100 text-green-800',
+}
+
+export function StatusBadge({ estado }: { estado: EstadoPedido }) {
+  return (
+    <span
+      className={cn(
+        'inline-block rounded-full px-2.5 py-1 text-xs font-medium',
+        estadoColores[estado] ?? 'bg-gray-100 text-gray-800',
+      )}
+    >
+      {estado}
+    </span>
+  )
+}

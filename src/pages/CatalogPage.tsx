@@ -47,9 +47,9 @@ export function CatalogPage() {
       {/* Hero */}
       <section className="bg-linear-to-r from-primary/85 via-primary/60 to-secondary">
         <div className="mx-auto max-w-7xl px-6 py-14 text-center sm:py-20">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-white/90">Colección Primavera</p>
-          <h1 className="mt-3 font-serif text-4xl font-semibold text-white sm:text-5xl">La Belle Robe</h1>
-          <p className="mt-3 text-lg text-white/90">Viste lo que sientes</p>
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-600">Colección Primavera</p>
+          <h1 className="mt-3 font-serif text-4xl font-semibold text-slate-800 sm:text-5xl">La Belle Robe</h1>
+          <p className="mt-3 text-lg text-slate-600">Viste lo que sientes</p>
         </div>
       </section>
 
