@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { toast } from 'sonner'
+import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -25,8 +26,12 @@ export function ProfilePage() {
   const [correo, setCorreo] = useState(user?.correo ?? '')
   const [telefono, setTelefono] = useState(user?.telefono ?? '')
   const [direccion, setDireccion] = useState(user?.direccion ?? '')
+  const [currentPwd, setCurrentPwd] = useState('')
   const [newPwd, setNewPwd] = useState('')
   const [confirmPwd, setConfirmPwd] = useState('')
+  const [showCurrentPwd, setShowCurrentPwd] = useState(false)
+  const [showNewPwd, setShowNewPwd] = useState(false)
+  const [showConfirmPwd, setShowConfirmPwd] = useState(false)
   const [saving, setSaving] = useState(false)
 
   if (!user) {
@@ -55,6 +60,7 @@ export function ProfilePage() {
     setDireccion(user?.direccion ?? '')
     setNewPwd('')
     setConfirmPwd('')
+    setCurrentPwd('')
   }
 
   async function handleSave(e: FormEvent) {
@@ -70,6 +76,11 @@ export function ProfilePage() {
       return
     }
 
+    if (newPwd && !currentPwd) {
+      toast.error('Ingresa tu contraseña actual para poder cambiarla')
+      return
+    }
+
     setSaving(true)
 
     try {
@@ -78,9 +89,12 @@ export function ProfilePage() {
         correo,
         telefono,
         direccion,
-        ...(newPwd ? { password: newPwd } : {}),
+        ...(newPwd
+          ? { password: newPwd, passwordActual: currentPwd }
+          : {}),
       })
 
+      setCurrentPwd('')
       setNewPwd('')
       setConfirmPwd('')
       toast.success('Perfil actualizado correctamente')
@@ -192,29 +206,88 @@ export function ProfilePage() {
               Deja estos campos vacíos si no quieres cambiar tu contraseña.
             </p>
 
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="newPwd">Nueva contraseña</Label>
+            <div className="mt-4 grid gap-4">
+            {/* Contraseña actual */}
+            <div className="space-y-2">
+              <Label htmlFor="currentPwd">Contraseña actual</Label>
+              <div className="relative">
+                <Input
+                  id="currentPwd"
+                  type={showCurrentPwd ? 'text' : 'password'}
+                  value={currentPwd}
+                  onChange={(e) => setCurrentPwd(e.target.value)}
+                  placeholder="••••••••"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPwd((value) => !value)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={showCurrentPwd ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showCurrentPwd ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Nueva contraseña */}
+            <div className="space-y-2">
+              <Label htmlFor="newPwd">Nueva contraseña</Label>
+              <div className="relative">
                 <Input
                   id="newPwd"
-                  type="password"
+                  type={showNewPwd ? 'text' : 'password'}
                   value={newPwd}
                   onChange={(e) => setNewPwd(e.target.value)}
                   placeholder="••••••••"
+                  className="pr-10"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPwd((value) => !value)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={showNewPwd ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showNewPwd ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="confirmPwd">Confirmar contraseña</Label>
+            {/* Confirmar contraseña */}
+            <div className="space-y-2">
+              <Label htmlFor="confirmPwd">Confirmar contraseña</Label>
+              <div className="relative">
                 <Input
                   id="confirmPwd"
-                  type="password"
+                  type={showConfirmPwd ? 'text' : 'password'}
                   value={confirmPwd}
                   onChange={(e) => setConfirmPwd(e.target.value)}
                   placeholder="••••••••"
+                  className="pr-10"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPwd((value) => !value)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={showConfirmPwd ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showConfirmPwd ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
             </div>
+          </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button type="submit" className="flex-1" disabled={saving}>

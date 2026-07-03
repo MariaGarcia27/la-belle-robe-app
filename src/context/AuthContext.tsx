@@ -75,8 +75,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     try {
       await registrarse(nombre, correo, password)
-    } catch {
-      const message = 'No se pudo crear la cuenta'
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.mensaje ?? 'No se pudo crear la cuenta'
       setError(message)
       throw new Error(message)
     } finally {
