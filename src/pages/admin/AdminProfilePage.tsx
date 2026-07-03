@@ -27,6 +27,7 @@ export function AdminProfilePage() {
   const [correo, setCorreo] = useState(user?.correo ?? '')
   const [telefono, setTelefono] = useState(user?.telefono ?? '')
   const [direccion, setDireccion] = useState(user?.direccion ?? '')
+  const [currentPwd, setCurrentPwd] = useState('')
   const [newPwd, setNewPwd] = useState('')
   const [confirmPwd, setConfirmPwd] = useState('')
   const [saving, setSaving] = useState(false)
@@ -58,6 +59,11 @@ export function AdminProfilePage() {
       return
     }
 
+    if (newPwd && !currentPwd) {
+      toast.error('Ingresa tu contraseña actual para poder cambiarla')
+      return
+    }
+
     setSaving(true)
 
     try {
@@ -66,9 +72,12 @@ export function AdminProfilePage() {
         correo,
         telefono,
         direccion,
-        ...(newPwd ? { password: newPwd } : {}),
+        ...(newPwd
+          ? { password: newPwd, passwordActual: currentPwd }
+          : {}),
       })
 
+      setCurrentPwd('')
       setNewPwd('')
       setConfirmPwd('')
       toast.success('Cambios guardados correctamente')
@@ -86,6 +95,7 @@ export function AdminProfilePage() {
     setCorreo(user?.correo ?? '')
     setTelefono(user?.telefono ?? '')
     setDireccion(user?.direccion ?? '')
+    setCurrentPwd('')
     setNewPwd('')
     setConfirmPwd('')
   }
@@ -214,6 +224,18 @@ export function AdminProfilePage() {
             </p>
 
             <div className="mt-4 grid gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="admin-currentPwd">Contraseña actual</Label>
+                <Input
+                  id="admin-currentPwd"
+                  type="password"
+                  value={currentPwd}
+                  onChange={(e) => setCurrentPwd(e.target.value)}
+                  placeholder="••••••••"
+                  className="border-primary/30 focus-visible:border-primary"
+                />
+              </div>
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="newPwd">Nueva contraseña</Label>
