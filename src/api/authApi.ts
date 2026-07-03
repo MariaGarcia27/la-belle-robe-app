@@ -34,6 +34,7 @@ export type ActualizarPerfilPayload = Partial<{
   telefono: string
   direccion: string
   password: string
+  passwordActual: string
 }>
 
 export const updateProfile = async (payload: ActualizarPerfilPayload) => {

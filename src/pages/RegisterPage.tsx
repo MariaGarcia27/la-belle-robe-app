@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Eye, EyeOff } from 'lucide-react'
 import { toast } from 'sonner'
 import { useAuth } from '../context/AuthContext'
 import { Button } from '../components/ui/button'
@@ -17,6 +18,7 @@ type FormErrors = {
   nombre?: string
   correo?: string
   password?: string
+  confirmarPassword?: string
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -28,6 +30,9 @@ export function RegisterPage() {
   const [nombre, setNombre] = useState('')
   const [correo, setCorreo] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmarPassword, setConfirmarPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
 
   const validateForm = () => {
@@ -49,6 +54,12 @@ export function RegisterPage() {
       newErrors.password = 'La contraseña debe tener mínimo 6 caracteres'
     }
 
+    if (!confirmarPassword) {
+      newErrors.confirmarPassword = 'Confirma tu contraseña'
+    } else if (password !== confirmarPassword) {
+      newErrors.confirmarPassword = 'Las contraseñas no coinciden'
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -63,8 +74,8 @@ export function RegisterPage() {
 
       toast.success('Cuenta creada correctamente')
       navigate('/login')
-    } catch {
-      toast.error('No se pudo crear la cuenta')
+    } catch (err: any) {
+      toast.error(err?.message ?? 'No se pudo crear la cuenta')
     }
   }
 
@@ -110,15 +121,67 @@ export function RegisterPage() {
 
             <div className="space-y-2">
               <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="Mínimo 6 caracteres"
-              />
+
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Mínimo 6 caracteres"
+                  className="pr-10"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((value) => !value)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+
               {errors.password && (
                 <p className="text-sm text-red-500">{errors.password}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmarPassword">Confirmar contraseña</Label>
+
+              <div className="relative">
+                <Input
+                  id="confirmarPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmarPassword}
+                  onChange={(event) => setConfirmarPassword(event.target.value)}
+                  placeholder="Repite tu contraseña"
+                  className="pr-10"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((value) => !value)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={
+                    showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'
+                  }
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+
+              {errors.confirmarPassword && (
+                <p className="text-sm text-red-500">{errors.confirmarPassword}</p>
               )}
             </div>
 
