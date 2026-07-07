@@ -24,6 +24,12 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -50,6 +56,12 @@
   --input: #fce4ec;
   --ring: #f48fb1;
   --radius: 0.875rem;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #374151;
+  --sidebar-border: #fce4ec;
+  --sidebar-accent: #fdf2f6;
+  --sidebar-accent-foreground: #374151;
 }
 
 @layer base {
