@@ -4,7 +4,7 @@ Aplicación web desarrollada en **React + TypeScript** que consume la API REST d
 
 ---
 
-## 🔗 URLs
+## URLs
 
 | Recurso | URL |
 |---|---|
@@ -14,7 +14,7 @@ Aplicación web desarrollada en **React + TypeScript** que consume la API REST d
 
 ---
 
-## 🛠 Tecnologías
+## Tecnologías
 
 - **React 19** + **TypeScript** — biblioteca de UI con tipado estático
 - **Vite** — herramienta de build y desarrollo
@@ -29,7 +29,7 @@ Aplicación web desarrollada en **React + TypeScript** que consume la API REST d
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 ```
 la-belle-robe-app/
@@ -72,7 +72,7 @@ la-belle-robe-app/
 
 ---
 
-## ⚙️ Instalación local
+## Instalación local
 
 ### Requisitos
 - Node.js 18+
@@ -100,7 +100,7 @@ La aplicación estará disponible en `http://localhost:5173`.
 
 ---
 
-## 🔐 Variables de entorno
+## Variables de entorno
 
 ```env
 VITE_API_URL=https://mongo-la-belle-robe.onrender.com
@@ -110,7 +110,7 @@ VITE_API_URL=https://mongo-la-belle-robe.onrender.com
 
 ---
 
-## 👥 Credenciales de prueba
+## Credenciales de prueba
 
 | Rol | Correo | Contraseña |
 |---|---|---|
@@ -119,7 +119,7 @@ VITE_API_URL=https://mongo-la-belle-robe.onrender.com
 
 ---
 
-## 🗺 Rutas de la aplicación
+## Rutas de la aplicación
 
 ### Rutas públicas
 Accesibles sin iniciar sesión. Si el usuario ya está autenticado, son redirigidas al inicio.
@@ -154,7 +154,7 @@ Solo accesibles con sesión de rol `admin`.
 
 ---
 
-## 🔒 Autenticación y seguridad
+## Autenticación y seguridad
 
 - El token JWT se almacena en `localStorage` al iniciar sesión
 - `AuthContext` expone `login`, `register`, `logout` y `checkAuth` (verifica token al recargar)
@@ -166,7 +166,7 @@ Solo accesibles con sesión de rol `admin`.
 
 ---
 
-## 🛒 Manejo de estado
+## Manejo de estado
 
 | Estado | Dónde | Qué maneja |
 |---|---|---|
@@ -178,7 +178,7 @@ Solo accesibles con sesión de rol `admin`.
 
 ---
 
-## 📡 Consumo del API
+## Consumo del API
 
 Todas las peticiones pasan por `src/api/api.ts`, que configura la URL base y los interceptores:
 
@@ -205,7 +205,7 @@ GET  /api/pagos/mis-pagos         → OrdersPage
 
 ---
 
-## 📋 Operaciones CRUD desde la interfaz
+## Operaciones CRUD desde la interfaz
 
 El panel de administración (`/admin/productos`) permite:
 
@@ -218,7 +218,7 @@ Cada operación muestra un toast de éxito o error y actualiza la lista automát
 
 ---
 
-## 📝 Formularios y validaciones
+## Formularios y validaciones
 
 | Formulario | Validaciones |
 |---|---|
@@ -232,7 +232,7 @@ Los errores se muestran inline bajo cada campo y también como notificaciones to
 
 ---
 
-## 🚀 Despliegue
+## Despliegue
 
 - **Plataforma:** Vercel
 - **URL pública:** https://la-belle-robe-app.vercel.app
