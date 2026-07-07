@@ -40,8 +40,20 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-muted/40 md:flex md:h-screen md:overflow-hidden">
+      {/* Barra superior — solo móvil: logo + cerrar sesión (en desktop el logout vive en el sidebar) */}
+      <div className="sticky top-0 z-50 flex items-center justify-between border-b border-border bg-background px-4 py-3 shadow-sm md:hidden">
+        <Logo />
+        <button
+          onClick={handleLogout}
+          aria-label="Cerrar sesión"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-destructive transition-colors hover:bg-destructive/10"
+        >
+          <LogOut className="h-5 w-5" />
+        </button>
+      </div>
+
       {/* Sidebar */}
-      <aside className="fixed bottom-0 left-0 right-0 z-40 flex border-t border-border bg-sidebar md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0 md:flex-col md:border-r md:border-t-0">
+      <aside className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border bg-sidebar shadow-[0_-2px_8px_rgba(0,0,0,0.06)] md:sticky md:top-0 md:z-40 md:h-screen md:w-64 md:shrink-0 md:flex-col md:border-r md:border-t-0 md:shadow-none">
         <div className="hidden items-center px-6 py-5 md:flex">
           <Logo />
         </div>
